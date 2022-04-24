@@ -1,0 +1,32 @@
+body {
+  margin: 200px;
+}
+.login-container {
+  margin: auto;
+  width: 50%;
+  padding: 5em 5em;
+  background-color: white;
+  box-shadow:0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.12);
+  /* overflow: hidden;
+  box-sizing: border-box; */
+}
+.login-title {
+  text-transform: capitalize;
+  font-size: 1.6em;
+  font-weight: 300;
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: oblique;
+  /* padding: 60px 0;
+  padding-bottom: 10px; */
+  color: lightblue;
+  text-align: center;
+}
+.login-container a {
+  text-decoration: none;
+  color: black;
+  padding: 10px 10px;
+  margin: 5px 5px;
+  /* display: block; */
+  background-color: red;
+  border-radius: 0.2em;
+}
