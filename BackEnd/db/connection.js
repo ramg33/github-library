@@ -8,7 +8,6 @@ const Pool = require("pg").Pool;
 
 const isProduction = process.env.NODE_ENV === "production";
 const connectionString = `postgresql://${process.env.USER}:${process.env.PASSWORD}@${process.env.HOST}:${process.env.PORT}/${process.env.DATABASE}`;
-console.log(connectionString)
 const pool = new Pool({
     connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
     // ssl: {

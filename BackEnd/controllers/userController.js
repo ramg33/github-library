@@ -57,12 +57,12 @@ exports.getUserRoles = async (req, res) => {
 exports.setUser = async (req, res) => {
   
   const user = req.body;
-  let insertQuery = `Insert into users ("firstName", "lastName", "email", "roleId", "userName", "") 
+  let insertQuery = `Insert into users ("firstName", "lastName", "email", "roleId", "userName", "password") 
   values('${user.firstName}', '${user.lastName}', '${user.email}', ${user.roleId}, '${user.userName}', '${user.password}')`
   console.log(insertQuery)
   const result = await pool.query(insertQuery, (err, result)=>{
       if(!err){
-          res.send('Ok');
+          res.send({msg:'Ok'});
       }
       else{ console.log(err.message) }
   })

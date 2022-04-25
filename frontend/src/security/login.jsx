@@ -1,39 +1,52 @@
-import { useState } from "react";
-import { useContext } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
+import { useRef } from 'react';
 
-import toastAlert from '../helpers/toastAlert';
+import './login.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import './login.css';
+const Login = ({onSubmit}) => {
+  const userName = useRef();
+  const password = useRef();
 
-const Login = () => {
-  
-  const fetchLogin = async(data) => {
-    // console.log(data);
-    try {
-      const resp = await fetch('http://localhost:3000/UserLogIn', {
-          method: 'POST',
-          //mode: 'no-cors',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-      });
-      const respJson = await resp.json();
-      return respJson;
-    } catch (error) {
-        return "";
+  const validate = (e) => {
+    e.preventDefault();
+    if (!userName.current.value) {
+      alert('Enter the user');
+      return;
     };
-  };
+    
+    if (!password.current.value) {
+      alert('Enter the password');
+      return;
+    }
+    onSubmit(userName.current.value.trim(), password.current.value.trim());
+  }
 
-    return (
-    <div className="login-container">
-      <div className="login-title">Login</div>
-      <input type="text" className="login-input-text"></input>
-      <br />
-      <a href="#">Login</a>
+  return (
+      <div className="App">
+        <h2 className='signin-title'>Sign In</h2>
+        <Form className="form">
+          <FormGroup>
+            <Label for="name" className='label-name'>Name</Label>
+            <Input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Insert the name"
+              innerRef={userName}
+            />
+              <Label for="password" className='label-name'>Password</Label>
+            <Input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Insert the password"
+              innerRef={password}
+            />
+          </FormGroup>
+        <Button color="primary" className="btn btn-primary" onClick={validate}>Submit</Button>
+      </Form>
     </div>
-  );
-};
-
-export default Login;
+  )
+}
+export default Login

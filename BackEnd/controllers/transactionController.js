@@ -7,31 +7,32 @@ const pool = require('../db/connection')
 
 exports.getUserTransactions = async (req, res) => {
   
-  const books = await pool.query(`Select * from transactions where "userId"=${req.params.userId}`, (err, result)=>{
-      if(!err){
-          res.send(result.rows);
-      }
-  });
+  const result = await pool.query(`SELECT "transactions".id, "books".id as "bookId", "title", "author", "publishedYear", "genre", 
+    "requestDate", "returnDate" FROM "transactions" JOIN "books" ON "books".Id = "transactions"."bookId"
+    where "transactions"."userId"=${req.params.userId}`, (err, result)=>{
+        if(!err){
+            res.send(result.rows);
+        }
+        else{ console.log(err.message) }
+    });
 
-  return books;
+  return result;
 
 };
 
 exports.setTransaction = async (req, res) => {
-  
   const trans = req.body;
   let insertQuery = ` Insert into transactions ("userId", "bookId", "status", "requestDate")
-  values('${trans.userId}', '${trans.autbookIdhor}', 'A', CURRENT_DATE); 
+  values('${trans.userId}', '${trans.bookId}', 'A', CURRENT_DATE); 
   Update books set available = available - 1
   where id = ${trans.bookId};`
   
   const result = await pool.query(insertQuery, (err, result)=>{
       if(!err){
-          res.send('Ok');
+          res.send({msg:'Ok'});
       }
       else{ console.log(err.message) }
-  })
-
+  });
   return result;
 
 }
@@ -46,7 +47,7 @@ exports.updateTransaction = async (req, res) => {
     
     const result = await pool.query(insertQuery, (err, result)=>{
         if(!err){
-            res.send('Ok');
+            res.send({msg:'Ok'});
         }
         else{ console.log(err.message) }
     })
